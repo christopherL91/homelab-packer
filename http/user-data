@@ -1,0 +1,34 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US
+  keyboard:
+    layout: us
+  ssh:
+    install-server: true
+    allow-pw: true
+    disable_root: true
+    ssh_quiet_keygen: true
+    allow_public_ssh_keys: true
+  packages:
+  - qemu-guest-agent
+  - sudo
+  storage:
+    layout:
+      name: direct
+    swap:
+      size: 0
+  user-data:
+    package_upgrade: true
+    timezone: Europe/Stockholm
+    users:
+    - name: lillt
+      passwd: $6$xyz$V92Uvd/k6J3MWndXU/mr1DH//HZF/KoHu7jWP1OIzt0sPFEfAetFgxxGNPO1W1fGfLF7fM1VYCAIwYML/dS5p0
+      groups: [adm, cdrom, dip, plugdev, lxd, sudo]
+      lock-passwd: false
+      sudo: ALL=(ALL) NOPASSWD:ALL
+      shell: /bin/bash
+      ssh_authorized_keys:
+      - sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBJBDdGNnfLfW+WpFTZesepPjcFzrILpQ5ZTg+EM1Qui1TnCw62Di/9qsObNvQ/d5iSPsdu6/argTgY6bxcYrZn4AAAAKc3NoOmdpdGh1Yg== clillthors@lillt-macbook
+  runcmd:
+  - touch /etc/cloud/cloud-init.disabled
